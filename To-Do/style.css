@@ -74,7 +74,7 @@ body.show-floater .overlay {
     z-index: 0;
 }
 
-.bookmark {
+.todo {
     display: flex;
     background: #FFF;
     position: relative;
@@ -85,23 +85,23 @@ body.show-floater .overlay {
     font-size: 16px;
 }
 
-.bookmark:hover {
+.todo:hover {
     color: #1CE;
     text-decoration: none;
 }
 
-.bookmark:first-child {
+.todo:first-child {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
 
-.bookmark:last-child {
+.todo:last-child {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     border-bottom: 0;
 }
 
-.bookmark .img {
+.todo .img {
     background-color: #DDD;
     border-radius: 3px;
     background-image: url(https://avatars.githubusercontent.com/u/113535466?v=4);
@@ -111,20 +111,37 @@ body.show-floater .overlay {
     margin-right: 20px;
 }
 
-.bookmark .title {
+.todo .title {
     display: flex;
     align-items: center;
 
 }
 
-.bookmark .glyphicon-remove {
+.todo .glyphicon-remove {
     position: absolute;
     top: 10px;
     right: 10px;
     color: #444;
-    font-size: 12px;
+    font-size: 16px;
     transition: 0.3s ease color;
 }
-.bookmark .glyphicon-remove:hover {
+.todo .glyphicon-remove:hover {
     color: #888;
+}
+
+
+.todo .glyphicon-ok {
+    position: absolute;
+    top: 75px;
+    right: 10px;
+    color: #444;
+    font-size: 16px;
+    transition: 0.3s ease color;
+}
+.todo .glyphicon-ok:hover {
+    color: #888;
+}
+
+.todo .checked{
+    color: lime;
 }

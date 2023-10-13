@@ -2,6 +2,8 @@ const body = document.body;
 const input = document.querySelector('input[type=text]');
 const overlay = document.querySelector('.overlay');
 
+
+
 function showFloater() {
     body.classList.add('show-floater');
 }
@@ -18,64 +20,79 @@ overlay.addEventListener('click', closeFloater);
 
 
 
-const bookmarksList = document.querySelector('.bookmarks-list');
-const bookmarksForm = document.querySelector('.bookmark-form');
-const bookmarksInput = document.querySelector('input[type=text]');
-const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+const todosList = document.querySelector('.todos-list');
+const todosForm = document.querySelector('.todo-form');
+const todosInput = document.querySelector('input[type=text]');
+const todos = JSON.parse(localStorage.getItem('todos')) || [];
 
-fillBookmarksList(bookmarks);
+fillTodosList(todos);
 
 
 
 localStorage.setItem('my_thing', 'something')
 
-function createBookmark(e) {
+function createTodo(e) {
     e.preventDefault();
 
-// add a new bookmark to the bookmarks
-const title = bookmarksInput.value;
-const bookmark = {
+// add a new todo to the todos
+const title = todosInput.value;
+const todo = {
     title: title
 };
-bookmarks.push(bookmark);
-fillBookmarksList(bookmarks);
-storeBookmarks(bookmarks);
-// save bookmarks to localStorage
+todos.push(todo);
+fillTodosList(todos);
+storeTodos(todos);
+// save todos to localStorage
 
 
 
-    bookmarksForm.reset();
+    todosForm.reset();
 }
 
 
-function fillBookmarksList(bookmarks = []) {
-    const bookmarksHtml = bookmarks.map((bookmark, i) => {
+function fillTodosList(todos = []) {
+    const todosHtml = todos.map((todo, i) => {
     return `
-    <a href='#' class='bookmark' data-id="${i}">
+    <a class='todo' data-id="${i}">
     <div class="img"></div>
-    <div class="title">${bookmark.title}</div>
+    <div class="title">${todo.title}</div>
+    <span id="check" class="glyphicon glyphicon-ok check"></span>
     <span class="glyphicon glyphicon-remove"></span>
+    
     </a>
     `;
 }).join('');
-    bookmarksList.innerHTML = bookmarksHtml;
+
+
+
+    todosList.innerHTML = todosHtml;
 }
 
-function storeBookmarks(bookmarks = []) {
-    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+
+// const span = document.querySelectorAll('span');
+
+// console.log(span);
+
+function checkTodo(e) {
+    if (!e.target.matches('.glyphicon-ok')) return;
+
+    console.log("check");
+    e.target.classList.add("checked");
+    storeTodos(todos)
 }
 
-function removeBookmark(e) {
-//find index
-    //remove with splice
-    //fill list
-    //update localStorage
+function storeTodos(todos = []) {
+    localStorage.setItem('todos', JSON.stringify(todos));
+}
+
+function removeTodo(e) {
+
     if (!e.target.matches('.glyphicon-remove')) return;
 
     const index = e.target.parentNode.dataset.id;
-    bookmarks.splice(index, 1);
-    fillBookmarksList(bookmarks);
-    storeBookmarks(bookmarks);
+    todos.splice(index, 1);
+    fillTodosList(todos);
+    storeTodos(todos);
 }
 
 
@@ -83,5 +100,6 @@ function removeBookmark(e) {
 
 
 
-bookmarksForm.addEventListener('submit', createBookmark);
-bookmarksList.addEventListener('click', removeBookmark)
+todosForm.addEventListener('submit', createTodo);
+todosList.addEventListener('click', removeTodo);
+todosList.addEventListener('click', checkTodo);
